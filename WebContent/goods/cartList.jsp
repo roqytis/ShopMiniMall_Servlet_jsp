@@ -8,46 +8,64 @@
 $(document).ready(function(){
 
 	 //수정버튼
-   $(".updateBtn").on("click",function(){
-   	var num= $(this).attr("data-xxx");
-   	var gAmount = $("#cartAmount"+num).val();        	
-   	
-   	var gPrice= $(this).attr("data-price");
-   	$.ajax({
-   		url:'CartUpdateServlet',
-   		type:'get',
-   		dataType:'text',
-   		data:{
-   			num:num,
-   			gAmount:gAmount
-   		},	
-   		
-   		success:function(data,status,xhr){
-   			var sum=gAmount*gPrice;
-   			$("#sum"+num).text(sum);
-   		},
-   		error:function(xhr,status,error){
-   			
-   		}
-   	});//end ajaxgkgk
-   	
-   });
+  $(".updateBtn").on("click",function(){
+  	var num= $(this).attr("data-xxx");
+  	var gAmount = $("#cartAmount"+num).val();        	
+  	
+  	var gPrice= $(this).attr("data-price");
+  	$.ajax({
+  		url:'CartUpdateServlet',
+  		type:'get',
+  		dataType:'text',
+  		data:{
+  			num:num,
+  			gAmount:gAmount
+  		},	
+  		
+  		success:function(data,status,xhr){
+  			var sum=gAmount*gPrice;
+  			$("#sum"+num).text(sum);
+  		},
+  		error:function(xhr,status,error){
+  			
+  		}
+  	});//end ajaxgkgk
+  	
+  });
 	 
-   //삭제버튼
-   $(".delBtn").on("click",function(){
-   	var num= $(this).attr("data-xxx");
-   	location.href="CartDelServlet?num="+num;
-   });
+  //삭제버튼
+  $(".delBtn").on("click",function(){
+  	var num= $(this).attr("data-xxx");
+  	location.href="CartDelServlet?num="+num;
+  });
 
-   //전체선택
-   $("#allCheck").on("click",function(){
-   	var result = this.checked;
-   	$(".check").each(function(idx,data){
-   		this.checked=result;
-   	});
-   });
-   
-   
+  //전체선택
+  $("#allCheck").on("click",function(){
+  	var result = this.checked;
+  	$(".check").each(function(idx,data){
+  		this.checked=result;
+    	});
+  });
+      //전체 cart 삭제 1
+    //$("input:checkbox[name='check']:checked").each(function(idx,ele){
+      $("#delAllCart").on("click", function() {
+		var num=[];
+    	  
+		$(".check:checked").each(function(idx,ele) {
+			num[idx]=$(this).val();
+		});
+			console.log(num);
+		  location.href="CartDelAllServlet?data="+num
+	}); 
+  
+  
+     //전체 cart 삭제2
+  $("#delAllCart2").on("click",function(){
+	
+	   $("form").attr("action", "CartDelAllServlet2");
+	   $("form").submit();
+  });  
+
 });
 </script>
 <table width="90%" cellspacing="0" cellpadding="0" border="0">
@@ -78,7 +96,7 @@ $(document).ready(function(){
 
 	<tr>
 		<td class="td_default" align="center">
-		<input type="checkbox" name="allCheck" id="allCheck" > <strong>전체선택</strong></td>
+		<input type="checkbox" class="check" name="allCheck" id="allCheck" > <strong>전체선택</strong></td>
 		<td class="td_default" align="center"><strong>주문번호</strong></td>
 		<td class="td_default" align="center" colspan="2"><strong>상품정보</strong></td>
 		<td class="td_default" align="center"><strong>판매가</strong></td>
@@ -100,7 +118,7 @@ $(document).ready(function(){
 	</tr>
 
 
-	<form name="myForm">	    
+	<form name="myForm" >	    
 <%
    List<CartDTO> list = (List<CartDTO>)request.getAttribute("cartList");
 	//System.out.println(list);
@@ -129,7 +147,7 @@ $(document).ready(function(){
 			<td class="td_default" width="80">
 			<!-- checkbox는 체크된 값만 서블릿으로 넘어간다. 따라서 value에 삭제할 num값을 설정한다. -->
 			<input type="checkbox"
-				name="check" id="check81" class="check" value="81"></td>
+				name="check" id="check81" class="check" value="<%=num %>"></td>
 			<td class="td_default" width="80"><%=num %></td>
 			<td class="td_default" width="80"><img
 				src="images/items/<%=gImage %>.gif" border="0" align="center"
@@ -181,7 +199,8 @@ $(document).ready(function(){
 	<tr>
 		<td align="center" colspan="5"><a class="a_black"
 			href="javascript:orderAllConfirm(myForm)"> 전체 주문하기 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
-			<a class="a_black" href="javascript:delAllCart(myForm)"> 전체 삭제하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="a_black" href="#" id="delAllCart"> 전체 삭제하기1 </a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="a_black" href="#" id="delAllCart2"> 전체 삭제하기2 </a>&nbsp;&nbsp;&nbsp;&nbsp;
 			<a class="a_black" href="main"> 계속 쇼핑하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
 		</td>
 	</tr>
