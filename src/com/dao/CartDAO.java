@@ -36,6 +36,11 @@ public class CartDAO {
 		return n;
 	}
 
+	public CartDTO cartbyNum(SqlSession session, String num) {
+		CartDTO list = session.selectOne("CartMapper.cartbyNum", num);
+		return list;
+	}
+
 	
 
 	

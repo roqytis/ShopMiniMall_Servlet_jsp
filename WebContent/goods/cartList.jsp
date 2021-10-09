@@ -33,6 +33,13 @@ $(document).ready(function(){
   	
   });
 	 
+	 //개별 주문버튼
+	 $(".orderBtn").on("click", function() {
+		var num=$(this).attr("data-xxx");
+		console.log(num);
+		location.href="CartOrderConfirmServelt?num="+num;
+	});
+	 
   //삭제버튼
   $(".delBtn").on("click",function(){
   	var num= $(this).attr("data-xxx");
@@ -174,7 +181,9 @@ $(document).ready(function(){
 				<%= gPrice*gAmount %>
 				</span></td>
 			<td><input type="button" value="주문"
-				onclick="order('81','a')"></td>
+				class="orderBtn"
+				data-xxx="<%= num%>">
+				</td>
 			<td class="td_default" align="center" width="30"
 				style='padding-left: 10px'>
 				<input type="button"  value="삭제" id="xx<%=i %>"
