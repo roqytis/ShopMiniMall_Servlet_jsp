@@ -1,5 +1,7 @@
+
 <%@page import="com.dto.MemberDTO"%>
 <%@page import="com.dto.CartDTO"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -25,38 +27,22 @@ $(document).ready(function(){
 });
 </script>
 <%
-    CartDTO cDTO =(CartDTO)request.getAttribute("cDTO");
-int num = cDTO.getNum();
-String gCode = cDTO.getgCode();
-String gName = cDTO.getgName();
-int gPrice = cDTO.getgPrice();
-String gSize = cDTO.getgSize();
-String gColor = cDTO.getgColor();
-int gAmount = cDTO.getgAmount();
-String gImage = cDTO.getgImage();
-    MemberDTO mDTO =(MemberDTO)request.getAttribute("mDTO");
-    String userid = mDTO.getUserid();
-    String username = mDTO.getUsername();
-    String post = mDTO.getPost();
-    String addr1 = mDTO.getAddr1();
-    String addr2 = mDTO.getAddr2();
-    String phone1 = mDTO.getPhone1();
-    String phone2 = mDTO.getPhone2();
-    String phone3 = mDTO.getPhone3();
-    String email1 = mDTO.getEmail1();
-    String email2 = mDTO.getEmail2();
-    
+   MemberDTO mDTO = (MemberDTO)request.getAttribute("memberDTO");
+   String userid = mDTO.getUserid();
+   String username = mDTO.getUsername();
+   String post = mDTO.getPost();
+   String addr1 = mDTO.getAddr1();
+   String addr2 = mDTO.getAddr2();
+   String phone1 = mDTO.getPhone1();
+   String phone2 = mDTO.getPhone2();
+   String phone3 = mDTO.getPhone3();
+   String email1 = mDTO.getEmail1();
+   String email2 = mDTO.getEmail2();
 %>
-<form name="myForm" method="get" action="CartOrderDoneServlet">
-<input type="hidden" name="gCode" value="<%=gCode %>">
-<input type="hidden" name="gName" value="<%=gName %>">
-<input type="hidden" name="gPrice" value="<%=gPrice %>">
-<input type="hidden" name="gSize" value="<%=gSize %>">
-<input type="hidden" name="gColor" value="<%=gColor %>">
-<input type="hidden" name="gAmount" value="<%=gAmount %>">
-<input type="hidden" name="gImage" value="<%=gImage %>">
-<input type="hidden" name="orderNum" value="<%=num %>"><!-- cart번호 -->
 
+<form name="myForm" method="GET" action="CartOrderAllDoneServlet">
+
+    
 	<table width="80%" cellspacing="0" cellpadding="0">
 
 		<tr>
@@ -97,221 +83,217 @@ String gImage = cDTO.getgImage();
 							<hr size="1" color="CCCCCC">
 						</td>
 					</tr>
+<!--  변수 선언 -->					
+<%
+List<CartDTO> cList = (List<CartDTO>)request.getAttribute("cartList");
 
+  for(CartDTO cDTO : cList){
+	  int num = cDTO.getNum();
+	  String gCode = cDTO.getgCode();
+	  String gName = cDTO.getgName();
+	  int gPrice = cDTO.getgPrice();
+	  String gSize = cDTO.getgSize();
+	  String gColor = cDTO.getgColor();
+	  int gAmount = cDTO.getgAmount();
+	  String gImage = cDTO.getgImage();	  
+%>					
+					
+			
+<!-- 누적 -->
+							
+<input type="hidden" name="userid" value="<%=userid %>" >
+<input type="hidden" name="num" value="<%=num %>" >
+<input type="hidden" name="gCode" value="<%=gCode %>" >
+<input type="hidden" name="gImage" value="<%=gImage %>" >
+<input type="hidden" name="gName" value="<%=gName %>" >
+<input type="hidden" name="gSize" value="<%=gSize %>" >
+<input type="hidden" name="gColor" value="<%=gColor %>" >
+<input type="hidden" name="gPrice" value="<%=gPrice %>" >
+<input type="hidden" name="gAmount" value="<%=gAmount %>" >   
 					<tr>
 						<td class="td_default" width="80"><%=num %></td>
 						<td class="td_default" width="80"><img
 							src="images/items/<%=gImage %>.gif" border="0" align="center"
 							width="80" /></td>
-						<td class="td_default" width="300" style='padding-left: 30px'><%=gName %>
+						<td class="td_default" width="300" style='padding-left: 30px'>
+						<%= gName %>
 							<br> <font size="2" color="#665b5f">[옵션 : 사이즈(<%=gSize %>)
 								, 색상(<%=gColor %>)]
 						</font></td>
-						<td class="td_default" align="center" width="110"><%=gPrice %>
+						<td class="td_default" align="center" width="110">
+						<%=gPrice %>
+						
 						</td>
 						<td class="td_default" align="center" width="90"><%=gAmount %></td>
 
 					</tr>
-
-
+<%
+  }//end for
+%>
+ 
+                
 					<tr>
 						<td height="30"></td>
 						<td class="td_default" align="right">총 결제 금액 :</td>
-						<td class="td_default" align='right'><%= gPrice*gAmount %>원</td>
+						<td class="td_default" align='right'>
+						￦172,200원</td>
 					</tr>
-				</table> <tr>
-			<td>
-					<hr size="1" color="CCCCCC">
-				</td>
-			</tr>
-
-		</td>
-	</tr><!--  고객 정보 시작-->
+				</table>
 		<tr>
-		<td height="30">
-	
+			<td>
+				<hr size="1" color="CCCCCC">
+			</td>
 		</tr>
 
-	<tr>
-		<td><b>고객 정보</b></td>
-	</tr>
-
-	<tr>
-		<td height="15">
-	
-		</tr>
-
-
-	<tr>
-		<td>
-			<table width="100%" cellspacing="0" cellpadding="0" border="1"
-					style="border-collapse:collapse" bordercolor="#CCCCCC">
-				<tr>
-					<td width="125" height="35" class="td_default">
-						
-						이 름
-					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="mname" size="20"
-							maxlength="20" value="<%= username%>"></input>
-					</td>
-				</tr>
-				<tr>
-					<td height="35" class="td_default">
-						
-						우편번호
-					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="mpost" size="6"
-							maxlength="6" value="<%= post%>" readonly>
-						
-					</td>
-				</tr>
-				<tr>
-					<td height="35" class="td_default">
-						
-						주 소
-					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="maddress1" size="35"
-							maxlength="200" value="<%= addr1 %>" readonly></input><br>
-						<input class="input_default" type="text" id="maddress2" size="35"
-							maxlength="200" value="<%= addr2%>" readonly></input>
-					</td>
-				</tr>
-				
-				<tr>
-					<td height="35" class="td_default">
-						휴대전화
-					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="mphone" size="15"
-							maxlength="15" value="<%= phone1+phone2+phone3%>"></input>
-						
-					</td>
-				</tr>
-			</table>							
 		</td>
-	</tr>
-<!--  고객 정보 끝-->
-	<tr>
-		<td height="30">
-	
+		</tr>
+		<!--  고객 정보 시작-->
+		<tr>
+			<td height="30">
 		</tr>
 
-	<tr> 
-		<td class="td_default">
-			 <input type="checkbox" name="same" id="same"> 배송지가 동일할 경우 선택하세요.
-		</td>
-	</tr>
-<!--  배송지 정보 시작-->
-	<tr>
-		<td height="30">
-	
+		<tr>
+			<td><b>고객 정보</b></td>
 		</tr>
 
-	<tr>
-		<td><b>배송지 정보</b></td>
-	</tr>
-
-	<tr>
-		<td height="15">
-	
+		<tr>
+			<td height="15">
 		</tr>
 
 
-	<tr>
-		<td>
-			<table width="100%" cellspacing="0" cellpadding="0" border="1"
-					style="border-collapse:collapse" bordercolor="#CCCCCC">
-				<tr>
-					<td width="125" height="35" class="td_default">
-						
-						이 름
-					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="orderName"
-							name="orderName" size="20" maxlength="20" value=""></input>
-					</td>
-				</tr>
-				<tr>
-					<td height="35" class="td_default">
-						
-						우편번호
-					</td>
-					<td height="35" class="td_default">
-<!-- 다음주소 시작-->
-	<input type="text" name="post" id="sample4_postcode" placeholder="우편번호">
+		<tr>
+			<td>
+				<table width="100%" cellspacing="0" cellpadding="0" border="1"
+					style="border-collapse: collapse" bordercolor="#CCCCCC">
+					<tr>
+						<td width="125" height="35" class="td_default">
+							이 름
+						</td>
+						<td height="35" class="td_default"><input
+							class="input_default" type="text" id="mname" size="20"
+							maxlength="20" value="<%=username%>"></input></td>
+					</tr>
+					<tr>
+						<td height="35" class="td_default">우편번호</td>
+						<td height="35" class="td_default"><input
+							class="input_default" type="text" id="mpost" size="6"
+							maxlength="6" value="<%=post%>" readonly></td>
+					</tr>
+					<tr>
+						<td height="35" class="td_default">주 소</td>
+						<td height="35" class="td_default"><input
+							class="input_default" type="text" id="maddress1" size="100"
+							maxlength="200" value="<%=addr1%>" readonly></input><br> <input
+							class="input_default" type="text" id="maddress2" size="100"
+							maxlength="200" value="<%=addr2%>" readonly></input></td>
+					</tr>
+
+					<tr>
+						<td height="35" class="td_default">휴대전화</td>
+						<td height="35" class="td_default"><input
+							class="input_default" type="text" id="mphone" size="15"
+							maxlength="15" value="<%=phone1+phone2+phone3 %>"></input>
+
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<!--  고객 정보 끝-->
+		<tr>
+			<td height="30">
+		</tr>
+
+		<tr>
+			<td class="td_default"><input type="checkbox" name="same"
+				id="same"> 배송지가 동일할 경우 선택하세요.</td>
+		</tr>
+		<!--  배송지 정보 시작-->
+		<tr>
+			<td height="30">
+		</tr>
+
+		<tr>
+			<td><b>배송지 정보</b></td>
+		</tr>
+
+		<tr>
+			<td height="15">
+		</tr>
+
+
+		<tr>
+			<td>
+				<table width="100%" cellspacing="0" cellpadding="0" border="1"
+					style="border-collapse: collapse" bordercolor="#CCCCCC">
+					<tr>
+						<td width="125" height="35" class="td_default">이 름</td>
+						<td height="35" class="td_default"><input
+							class="input_default" type="text" id="orderName" name="orderName"
+							size="20" maxlength="20" value=""></input></td>
+					</tr>
+					<tr>
+						<td height="35" class="td_default">우편번호</td>
+						<td height="35" class="td_default">
+							<!-- 다음주소 시작--> 	<input type="text" name="post" id="sample4_postcode" placeholder="우편번호">
 <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
 <input type="text" name="addr1" id="sample4_roadAddress" placeholder="도로명주소">
 <input type="text" name="addr2" id="sample4_jibunAddress" placeholder="지번주소">
 <span id="guide" style="color:#999"></span>
-<br>
-<!-- 다음주소 끝 -->
-					</td>
-				</tr>
-				
-				<tr>
-					<td height="35" class="td_default">
-						
-						휴대전화
-					</td>
-					<td height="35" class="td_default">
-						<input class="input_default" type="text" id="phone"
-							name="phone" size="15" maxlength="15" value=""></input>
-					
-					</td>
-				</tr>
-			</table>							
-		</td>
-	</tr>
-<!--  배송지 정보 끝-->
+<br> <!-- 다음주소 끝 -->
+						</td>
+					</tr>
 
-	<tr>
-		<td height="30">
-	
+					<tr>
+						<td height="35" class="td_default">휴대전화</td>
+						<td height="35" class="td_default"><input
+							class="input_default" type="text" id="phone" name="phone"
+							size="15" maxlength="15" value=""></input></td>
+					</tr>
+				</table>
+			</td>
 		</tr>
-	<tr>
-		<td><b>결제수단</b></td>
-	</tr>
+		<!--  배송지 정보 끝-->
 
-	<tr>
-		<td height="15">
-	
+		<tr>
+			<td height="30">
 		</tr>
-	<tr>
-		<td>
-			<table width="100%" cellspacing="0" cellpadding="0" border="1"
-					style="border-collapse:collapse" bordercolor="#CCCCCC">
-				<tr>
-					<td width="125" height="35" class="td_default">
-						<input type="radio" name="payMethod" value="신용카드" checked>신용카드</input>
-						
-						<input type="radio" name="payMethod" value="계좌이체">계좌이체</input>
-						
-						<input type="radio" name="payMethod" value="무통장 입금">무통장 입금</input>
-					</td>
-					
-				</tr>
-				
-			</table>							
-		</td>
-	</tr>
-	
-	<tr>
-		<td height="30">
-	
+		<tr>
+			<td><b>결제수단</b></td>
+		</tr>
+
+		<tr>
+			<td height="15">
+		</tr>
+		<tr>
+			<td>
+				<table width="100%" cellspacing="0" cellpadding="0" border="1"
+					style="border-collapse: collapse" bordercolor="#CCCCCC">
+					<tr>
+						<td width="125" height="35" class="td_default"><input
+							type="radio" name="payMethod" value="신용카드" checked>신용카드</input> <input
+							type="radio" name="payMethod" value="계좌이체">계좌이체</input> <input
+							type="radio" name="payMethod" value="무통장 입금">무통장 입금</input></td>
+
+					</tr>
+
+				</table>
+			</td>
+		</tr>
+
+		<tr>
+			<td height="30">
 		</tr>
 
 
-	<tr>
-		<td class="td_default" align="center">
-			<input type='button' value='취소' onclick="javascript:history.back()">	
-			<input type='submit' value='결제하기'>
-		</td>
-	</tr>
+		<tr>
+			<td class="td_default" align="center"><input type='button'
+				value='취소' onclick="javascript:history.back()"> 
+				<input
+				type='submit' value='결제하기'></td>
+		</tr>
 
-</table>
+	</table>
 
 </form>
 

@@ -1,7 +1,6 @@
 package com.dto;
 
 public class OrderDTO {
-
 	int num;
 	String userid;
 	String gCode;
@@ -141,10 +140,11 @@ public class OrderDTO {
 	}
 	@Override
 	public String toString() {
-		return "orderDTO [num=" + num + ", userid=" + userid + ", gCode=" + gCode + ", gName=" + gName + ", gPrice="
+		return "OrderDTO [num=" + num + ", userid=" + userid + ", gCode=" + gCode + ", gName=" + gName + ", gPrice="
 				+ gPrice + ", gSize=" + gSize + ", gColor=" + gColor + ", gAmount=" + gAmount + ", gImage=" + gImage
 				+ ", orderName=" + orderName + ", post=" + post + ", addr1=" + addr1 + ", addr2=" + addr2 + ", phone="
 				+ phone + ", payMethod=" + payMethod + ", orderday=" + orderday + "]";
 	}
-
+	
+	
 }

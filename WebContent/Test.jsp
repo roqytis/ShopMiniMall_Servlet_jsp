@@ -7,8 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <img src="images/items/bottom1.gif">
 <img src="images/outer12.gif">
 <img src="basket_down.gif">
+
 </body>
 </html>

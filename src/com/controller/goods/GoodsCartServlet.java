@@ -28,7 +28,7 @@ public class GoodsCartServlet extends HttpServlet {
 		 HttpSession session = request.getSession();
 	      MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		 String nextPage = null;
-	      if(dto!=null) {//회원인경우 
+	      if(dto!=null) {
 	    	String gImage = request.getParameter("gImage");
 	  		String gCode = request.getParameter("gCode");
 	  		String gName = request.getParameter("gName");
@@ -36,7 +36,7 @@ public class GoodsCartServlet extends HttpServlet {
 	  		String gSize = request.getParameter("gSize");
 	  		String gColor = request.getParameter("gColor");
 	  		String gAmount = request.getParameter("gAmount");
-	  		String userid=dto.getUserid();//세션 
+	  		String userid=dto.getUserid();
 	  		
 	  		CartDTO xx  = new CartDTO();
 	  		xx.setgImage(gImage);
@@ -47,13 +47,9 @@ public class GoodsCartServlet extends HttpServlet {
 	  		xx.setgColor(gColor);
 	  		xx.setgAmount(Integer.parseInt(gAmount));
 	  		xx.setUserid(userid);
-	  		//sysout
-	  		
 	  		
 	  		CartService service = new CartService();
-	  		int n=service.cartAdd(xx);//sysout   		
-	  		
-	  		
+	  		int n=service.cartAdd(xx);
 			nextPage = "GoodsRetrieveServlet?gCode="+gCode;
 			session.setAttribute("mesg",gCode+" Cart저장성공" );
 

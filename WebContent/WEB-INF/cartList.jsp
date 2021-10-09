@@ -3,8 +3,8 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script type="text/javascript">"text/javascript">
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript">
     $(document).ready(function(){
 
     	 //수정버튼
@@ -48,32 +48,7 @@
         	});
         });
         
-        //전체cart 삭제
-        $("#delAllCart").on("click",function(){
-        	var num=[];
-        	$("input:checkbox[name='check']:checked").each(function(idx,ele){
-        		num[idx]=$(this).val();
-        	});
-        	console.log(num);
-        	location.href="CartDelAllServlet?data="+num;
-        });
-      //전체cart 삭제
-        $("#delAllCart2").on("click",function(){
-        	
-        	$("form").attr("action", "CartDelAllServlet2");
-        	$("form").submit();// trigger
-        });
         
-        //주문버튼
-        $(".orderBtn").on("click",function(){
-        	var num= $(this).attr("data-xxx");
-        	location.href="CartOrderConfirmServlet?num="+num;
-        });
-      //전체 주문버튼
-        $("#orderAllConfirm").on("click",function(){
-        	$("form").attr("action", "CartOrderAllConfirmServlet");
-        	$("form").submit();// trigger
-        });
    });
 </script>    
 <table width="90%" cellspacing="0" cellpadding="0" border="0">
@@ -158,7 +133,7 @@
 			<td class="td_default" width="80">
 			<!-- checkbox는 체크된 값만 서블릿으로 넘어간다. 따라서 value에 삭제할 num값을 설정한다. -->
 			<input type="checkbox"
-				name="check" id="check81" class="check" value="<%=num%>"></td>
+				name="check" id="check81" class="check" value="81"></td>
 			<td class="td_default" width="80"><%=num %></td>
 			<td class="td_default" width="80"><img
 				src="images/items/<%=gImage %>.gif" border="0" align="center"
@@ -185,7 +160,9 @@
 				style='padding-left: 5px'><span id="sum<%=num%>">
 				<%= gPrice*gAmount %>
 				</span></td>
-			<td><input type="button" value="주문" class="orderBtn" data-xxx="<%=num%>"``></td>
+			<td><input type="button" value="주문
+			"
+				onclick="order('81','a')"></td>
 			<td class="td_default" align="center" width="30"
 				style='padding-left: 10px'>
 				<input type="button" value="삭제" id="xx<%=i %>"
@@ -208,10 +185,10 @@
 	</tr>
 
 	<tr>
-		<td align="center" colspan="5"><a class="a_black" id="orderAllConfirm"> 전체 주문하기 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
-			<a class="a_black" href="#" id="delAllCart"> 전체 삭제하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a class="a_black" href="#" id="delAllCart2"> 전체 삭제하기2 </a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a class="a_black" href="main"> 계속 쇼핑하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
+		<td align="center" colspan="5"><a class="a_black"
+			href="javascript:orderAllConfirm(myForm)"> 전체 주문하기 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
+			<a class="a_black" href="javascript:delAllCart(myForm)"> 전체 삭제하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="a_black" href="index.jsp"> 계속 쇼핑하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
 		</td>
 	</tr>
 	<tr>

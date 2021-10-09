@@ -12,49 +12,39 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.dto.CartDTO;
+import com.dto.GoodsDTO;
 import com.dto.MemberDTO;
 import com.service.CartService;
+import com.service.GoodsService;
 
 /**
- * Servlet implementation class CartListServlet
+ * Servlet implementation class GoodsListServlet
  */
 @WebServlet("/CartListServlet")
 public class CartListServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CartListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
 		 HttpSession session = request.getSession();
 	      MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		 String nextPage = null;
-		 if(dto!=null) {
-			 String userid =dto.getUserid();
-			 CartService service =new CartService();
-			 List<CartDTO> list=service.cartList(userid);
-			 request.setAttribute("cartList", list);
-			 nextPage="cartList.jsp";
-		 }else {
-			 nextPage ="LoginUIServlet";
-			 session.setAttribute("mesg", "로그인이 필요한 작업입니다.");
-		 }
-		 RequestDispatcher dis =request.getRequestDispatcher(nextPage);
-		 dis.forward(request, response);
+	      if(dto!=null) {
+	        String userid =dto.getUserid();
+	        CartService service =new CartService();
+	        List<CartDTO> list = service.cartList(userid);
+	        request.setAttribute("cartList", list);
+			nextPage = "cartList.jsp";
+
+	      }else {
+			  nextPage = "LoginUIServlet";
+			  session.setAttribute("mesg", "로그인이 필요한 작업입니다.");
+		  }
+		
+		RequestDispatcher dis = request.getRequestDispatcher(nextPage);
+		dis.forward(request, response);
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

@@ -1,6 +1,7 @@
 package com.controller.goods;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,12 +17,13 @@ import com.dto.GoodsDTO;
 import com.dto.MemberDTO;
 import com.service.CartService;
 import com.service.GoodsService;
+import com.service.MemberService;
 
 /**
  * Servlet implementation class GoodsListServlet
  */
-@WebServlet("/CartDelServlet")
-public class CartDelServlet extends HttpServlet {
+@WebServlet("/CartOrderAllConfirmServlet")
+public class CartOrderAllConfirmServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -29,19 +31,28 @@ public class CartDelServlet extends HttpServlet {
 	      MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		 String nextPage = null;
 	      if(dto!=null) {
-	       String num = request.getParameter("num");
-	       
-	       CartService service = new CartService();
-	       int n = service.cartDel(Integer.parseInt(num));
-	       
-			nextPage = "CartListServlet";
+
+	    	String [] data=request.getParameterValues("check");  
+	    	List<String> list= Arrays.asList(data);  
+	    	CartService cService = new CartService();
+	    	List<CartDTO> cList = cService.orderAllConfirm(list);//cart정보저장
+	    	request.setAttribute("cartList", cList);  
+	    	
+	    	MemberService mService = new MemberService();
+	    	String userid=dto.getUserid();
+	    	MemberDTO mDTO = mService.mypage(userid);//회원정보가져오기
+	    	request.setAttribute("memberDTO", mDTO);  //회원정보저장
+	    	
+	    	
+			nextPage = "orderAllConfirm.jsp";
 
 	      }else {
 			  nextPage = "LoginUIServlet";
 			  session.setAttribute("mesg", "로그인이 필요한 작업입니다.");
 		  }
 		
-		 response.sendRedirect(nextPage);
+	  	RequestDispatcher dis = request.getRequestDispatcher(nextPage);
+		dis.forward(request, response);
 		
 	}
 

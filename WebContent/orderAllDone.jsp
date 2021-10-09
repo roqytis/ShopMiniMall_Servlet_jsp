@@ -9,10 +9,10 @@
 <body>
 
 
-<h1>결제 화면입니다.</h1>
+<h1>전체 결제 화면입니다.</h1>
 <jsp:include page="common/top.jsp" flush="true" /><br>
 <jsp:include page="common/menu.jsp" flush="true" />
 <hr>
-<jsp:include page="order/orderDone.jsp" flush="true" />
+<jsp:include page="order/orderAllDone.jsp" flush="true" />
 </body>
 </html>

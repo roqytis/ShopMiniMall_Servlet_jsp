@@ -194,7 +194,7 @@ insert into goods
      addr1 VARCHAR2(500) NOT NULL,
      addr2 VARCHAR2(500) NOT NULL,
      phone VARCHAR2(11) NOT NULL,
-     payMethod VARCHAR2(20) NOT NULL,
+     payMethod VARCHAR2(10) NOT NULL,
      orderDay DATE  DEFAULT SYSDATE
   );   
   alter table orderInfo

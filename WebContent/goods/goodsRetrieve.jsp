@@ -10,7 +10,7 @@
    </script>
 <%
   }
-  session.removeAttribute("mesg");//메세지 삭제
+  session.removeAttribute("mesg");
 %>    
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -56,7 +56,7 @@
   String gImage = dto.getgImage();
   
 %>    
-<form name="goodRetrieveForm" method="GET" ><!-- action은 위 jquery에서 설정  -->
+<form name="goodRetrieveForm" method="GET" >
 	    <input type="hidden" name="gImage" value="<%=gImage%>"> <input
 		type="hidden" name="gCode" value="<%=gCode%>"> <input
 		type="hidden" name="gName" value="<%=gName%>"> <input

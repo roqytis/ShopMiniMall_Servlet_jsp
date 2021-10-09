@@ -7,6 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+
+<h1>주문 확인 화면입니다.</h1>
 <jsp:include page="common/top.jsp" flush="true" /><br>
 <jsp:include page="common/menu.jsp" flush="true" />
 <hr>
