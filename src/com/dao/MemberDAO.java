@@ -31,4 +31,9 @@ public class MemberDAO {
 	   MemberDTO n = session.selectOne("MemberMapper.mypage", userid);
 	   return n;
    }
+
+public String idSearch(SqlSession session, MemberDTO dto) {
+	String n=session.selectOne("MemberMapper.idSearch",dto);
+	return n;
+}
 }

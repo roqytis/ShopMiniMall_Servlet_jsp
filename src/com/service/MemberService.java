@@ -79,4 +79,18 @@ public class MemberService {
 			}
 			return dto;
 		}//end idCheck
+
+	public String idSearch(MemberDTO dto) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		String userid =null;
+		try {
+			MemberDAO dao =new MemberDAO();
+			userid =dao.idSearch(session, dto);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return userid;
+	}
 }//end class

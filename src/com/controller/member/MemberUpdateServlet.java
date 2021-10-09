@@ -24,8 +24,7 @@ public class MemberUpdateServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		MemberDTO dto = (MemberDTO)session.getAttribute("login");
 		String nextPage=null;
-	
-		if(dto!=null) {
+	if(dto!=null) {
 			request.setCharacterEncoding("utf-8");//한글처리 
 			String userid = request.getParameter("userid");
 			String passwd = request.getParameter("passwd");
