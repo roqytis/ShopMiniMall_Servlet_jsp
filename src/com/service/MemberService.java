@@ -21,4 +21,17 @@ public class MemberService {
 		}
 		  return n;
 	   }//end memberAdd
+	  public int idCheck(String userid) {
+			SqlSession session = MySqlSessionFactory.getSession();
+			int count = 0;
+			try {
+				 MemberDAO dao = new MemberDAO();
+				count = dao.idCheck(session, userid);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				session.close();
+			}
+			return count;
+		}//end idCheck
 }//end class

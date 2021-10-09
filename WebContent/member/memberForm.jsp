@@ -5,44 +5,60 @@
 <script type="text/javascript">
     $(document).ready(function(){
     	//form 서브밋
-    	//id. 비번이 0인 경우 에러창 띄우고
-	    //전송금지
  $("form").on("submit",function(event){		
 	 var userid = $("#userid").val();
 	 var passwd = $("#passwd").val();
     		if(userid.length==0){
-    			alert("userid 필수");
+    			alert("userid 필수")
     			$("#userid").focus();
     			event.preventDefault();
     		}else if(passwd.length==0){
-    			alert("passwd 필수");
+    			alert("passwd 필수")
     			$("#passwd").focus();
     			event.preventDefault();
     		}
     	});
 //비번확인
-//키 이벤트 발생시 패스워드 일치여부 검사 
- $("#passwd2").on("keyup", function() {
-	  
-	 var passwd = "비밀번호 일치";
-	var pw = $("#passwd").val();
-	var mesg = "비번 불일치";
-	if(passwd== $(this).val()){
-		mesg = "비번 일치";
-	}
-	$("#result2").text(mesg);	
-   });
-   
-   $("#emailselect").on("change", function() {
-	 console.log("sel")
-	   $("#email2").val($(this).val());
+ $("#passwd2").on("keyup",function(){
+		var passwd = $("#passwd").val();
+		var mesg = "비번 불일치";
+		if(passwd == $(this).val()){
+			mesg = "비번 일치";
+		}
+		$("#result2").text(mesg);
+	});
+	
+//이메일 선택
+ $("#emailSelect").on("change",function(){
+		var email = $(this).val();
+		  $("#email2").val(email);
+	});
+	
+ $("#userid").on("keyup",function(event){	
+	 $.ajax({
+			type : "GET",
+			url : "MemberIdCheckServlet",
+			dataType : "text",//응답 데이터 타입
+			data : {
+				userid : $("#userid").val()
+			},
+			success : function(responseData, status, xhr) {
+			    $("#result").text(responseData);
+			},
+			error : function(xhr, status, error) {
+				console.log("error");
+			}
+		});
 });
-});
+ 
+ });
 </script>    
 <form action="MemberAddServlet" method="get">
-*아이디:<input type="text" name="userid" id="userid"><br> 
+*아이디:<input type="text" name="userid" id="userid">
+<span id="result"></span>
+<br> 
 *비밀번호:<input type="text" name="passwd" id="passwd"><br> 
-비빌번호확인:<input type="text" name="passwd2" id="passwd2">
+비밀번호확인:<input type="text" name="passwd2" id="passwd2">
 <span id="result2"></span>
 <br> 
 이름:<input type="text" name="username"><br> 
@@ -58,9 +74,9 @@
 </select>-
 <input type="text" name="phone2" >-<input type="text" name="phone3" >
 <br>
-이메일:<input type="text" name="email1" >@
+이메일:<input type="text" name="email1" id="email1">@
        <input type="text" name="email2" id="email2" placeholder="직접입력">
-       <select id="emailselect">
+       <select  id="emailSelect">
         <option value="daum.net">daum.net</option>
         <option value="naver.com">naver.com</option>
        </select>

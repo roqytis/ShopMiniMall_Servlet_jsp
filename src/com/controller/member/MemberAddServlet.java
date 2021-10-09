@@ -34,18 +34,13 @@ public class MemberAddServlet extends HttpServlet {
 		MemberDTO dto =
 				new MemberDTO(userid, passwd, username, post, 
 						addr1, addr2, phone1, phone2, phone3, email1, email2);
-		//sysout
+		
 		MemberService service = new MemberService();
 		int n = service.memberAdd(dto);
-		//sysout
-		
-		
-		
 		
 		HttpSession session = request.getSession();
-		if(n>0) {session.setAttribute("memberAdd", "회원가입성공");};
-		//session.setAttribute("memberAdd", "회원가입성공");
-		session.setMaxInactiveInterval(60*30);
+		session.setAttribute("memberAdd", "회원가입성공");
+		session.setMaxInactiveInterval(5);
 		response.sendRedirect("main.jsp");
 	}
 
