@@ -32,6 +32,19 @@
   		$("form").attr("action", "GoodsCartServlet");  		/////
 	   
    });	
+   $("#up").on("click", function() {
+		var count = $("#gAmount").val();
+		$("#gAmount").val(parseInt(count) + 1);
+	});//up		
+	
+	
+	$("#down").on("click", function() {
+		var count = $("#gAmount").val();
+		if (count != 1) {
+			$("#gAmount").val(parseInt(count) - 1);
+		}
+	});//down
+   
     });	
 
 </script>      

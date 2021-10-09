@@ -11,6 +11,8 @@
 안녕하세요.<%= username %>
 <a href="LogoutServlet">로그아웃</a>    
 <a href="MyPageServlet">mypage</a>
+<a href="CartListServlet">장바구니 목록</a>
+
     
 <%
    }else{

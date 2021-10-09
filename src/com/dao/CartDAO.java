@@ -13,4 +13,10 @@ public class CartDAO {
 		return n;
 	}
 
+	public List<CartDTO> cartList(SqlSession session, String userid) {
+		List<CartDTO> list=
+				 session.selectList("CartMapper.cartList", userid);
+		return list;
+	}
+
 }
