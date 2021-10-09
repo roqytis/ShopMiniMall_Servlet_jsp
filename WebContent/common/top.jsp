@@ -6,7 +6,7 @@
   MemberDTO dto =(MemberDTO)session.getAttribute("login");
   if(dto != null){
 %>
-<a href="">로그아웃</a>
+안녕하세요.<a href="LogoutServlet">로그아웃</a>
 <a href="">mypage</a>
 
 <%
