@@ -5,6 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%
+	String mesg= (String)session.getAttribute("memberAdd");
+	if(mesg!=null){//회원가입 정보 있음
+%>
+	<script type="text/javascript">
+		alert("<%=mesg%>");
+	</script>
+<%} %>
 </head>
 <body>
 <h1>Main화면입니다.</h1>
