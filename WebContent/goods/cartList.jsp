@@ -3,7 +3,29 @@
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+    	//삭제 버튼
+    	$(".delBtn").on("click", function() {
+			var num =$(this).attr("data-xxx");
+			console.log("num");
+			location.href="CartDelServlet?num="+num;
+			
+			
+		});
+    	
+    	//전체선택
+    	$("#allCheck").on("click", function() {
+   			var result= this.checked;
+		 $(".check").each( function(idx,data) {
+			this.checked=result;
+		  });
+    	});
+    	
+    });
+    
+</script>
 <table width="90%" cellspacing="0" cellpadding="0" border="0">
 
 	<tr>
@@ -32,7 +54,7 @@
 
 	<tr>
 		<td class="td_default" align="center">
-		<input type="checkbox" name="allCheck" id="allCheck"> <strong>전체선택</strong></td>
+		<input type="checkbox" name="allCheck" id="allCheck" > <strong>전체선택</strong></td>
 		<td class="td_default" align="center"><strong>주문번호</strong></td>
 		<td class="td_default" align="center" colspan="2"><strong>상품정보</strong></td>
 		<td class="td_default" align="center"><strong>판매가</strong></td>
@@ -109,8 +131,9 @@
 			<td><input type="button" value="주문"
 				onclick="order('81','a')"></td>
 			<td class="td_default" align="center" width="30"
-				style='padding-left: 10px'><input type="button" value="삭제"
-				onclick="delCart('81')"></td>
+				style='padding-left: 10px'>
+				<input type="button"  value="삭제" id="xx<%=i %>"
+				class="delBtn" data-xxx="<%=num %>"></td>
 			<td height="10"></td>
 		</tr>
 
@@ -132,7 +155,7 @@
 		<td align="center" colspan="5"><a class="a_black"
 			href="javascript:orderAllConfirm(myForm)"> 전체 주문하기 </a>&nbsp;&nbsp;&nbsp;&nbsp; 
 			<a class="a_black" href="javascript:delAllCart(myForm)"> 전체 삭제하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
-			<a class="a_black" href="index.jsp"> 계속 쇼핑하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="a_black" href="main"> 계속 쇼핑하기 </a>&nbsp;&nbsp;&nbsp;&nbsp;
 		</td>
 	</tr>
 	<tr>
