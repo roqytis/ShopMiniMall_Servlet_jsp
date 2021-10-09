@@ -1,4 +1,4 @@
-package com.controller.main;
+package com.controller.goods;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,23 +14,28 @@ import com.dto.GoodsDTO;
 import com.service.GoodsService;
 
 /**
- * Servlet implementation class MainServlet
+ * Servlet implementation class GoodsListServlet
  */
-@WebServlet("/main")
-public class MainServlet extends HttpServlet {
+@WebServlet("/GoodsListServlet")
+public class GoodsListServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+	
+		String gCategory = request.getParameter("gCategory");
+		if(gCategory==null) {
+			gCategory = "top";
+		}
 		GoodsService service = new GoodsService();
-		List<GoodsDTO> list = service.goodsList("top");
-			request.setAttribute("goodsList", list);
+		List<GoodsDTO> list = service.goodsList(gCategory);
+		
+		
+		request.setAttribute("goodsList", list);
+		
 		RequestDispatcher dis = request.getRequestDispatcher("main.jsp");
 		dis.forward(request, response);
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

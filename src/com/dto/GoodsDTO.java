@@ -62,5 +62,7 @@ public class GoodsDTO {
 		return "GoodsDTO [gCode=" + gCode + ", gCategory=" + gCategory + ", gName=" + gName + ", gContent=" + gContent
 				+ ", gPrice=" + gPrice + ", gImage=" + gImage + "]";
 	}
-
+	
+	
+	
 }

@@ -1,6 +1,6 @@
+<%@page import="com.dto.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@page import="com.dto.MemberDTO"%>
     
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
@@ -39,7 +39,7 @@
 	 $.ajax({
 			type : "GET",
 			url : "MemberIdCheckServlet",
-			dataType : "text",//응답 데이터 타입
+			dataType : "text",
 			data : {
 				userid : $("#userid").val()
 			},
@@ -53,46 +53,49 @@
 });
  
  });
-</script>  
+</script>    
 <%
-  MemberDTO dto=(MemberDTO)session.getAttribute("login");
- String userid=dto.getUserid();
- String username=dto.getUsername();
- String post=dto.getPost();
- String addr1=dto.getAddr1();
- String addr2=dto.getAddr2();
- String phone1=dto.getPhone1();
- String phone2=dto.getPhone2();
- String phone3=dto.getPhone3();
- String email1=dto.getEmail1();
- String email2=dto.getEmail2();
-
-%>  
-<form action="MemberAddServlet" method="get">
-*아이디:<%= userid %><br> 
+   MemberDTO dto =(MemberDTO)session.getAttribute("login");
+   String userid = dto.getUserid();
+   String username = dto.getUsername();
+   String post = dto.getPost();
+   String addr1 = dto.getAddr1();
+   String addr2 = dto.getAddr2();
+   String phone1 = dto.getPhone1();
+   String phone2 = dto.getPhone2();
+   String phone3 = dto.getPhone3();
+   String email1 = dto.getEmail1();
+   String email2 = dto.getEmail2();
+%>
+<form action="MemberUpdateServlet" method="post">
+<input type="hidden" value="<%= userid %>" name="userid" >
+*아이디: <%= userid %><br>
 <br> 
-이름:<%=username %><br> 
-
-<input type="text" value="<%=post %>" name="post" id="sample4_postcode" placeholder="우편번호">
+*이름:<%= username %>
+<br> 
+<input type="text" value="<%= post %>" name="post" id="sample4_postcode"  placeholder="우편번호">
 <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
-<input type="text" value="<%=addr1 %>" name="addr1" id="sample4_roadAddress" placeholder="도로명주소" >
-<input type="text" value="<%=addr2 %>" name="addr2" id="sample4_jibunAddress" placeholder="지번주소">
+<input type="text" value="<%= addr1 %>" name="addr1" id="sample4_roadAddress" placeholder="도로명주소">
+<input type="text" value="<%= addr2 %>" name="addr2" id="sample4_jibunAddress" placeholder="지번주소">
 <span id="guide" style="color:#999"></span>
 <br>
- 전화번호:<select name="phone1">
+전화번호:<select name="phone1">
+  <option value="017"<% if("017".equals(phone1)){ %> selected<%} %>>017</option>
+  <option value="011"<% if("011".equals(phone1)){ %> selected<%} %>>011</option>
   <option value="010"<% if("010".equals(phone1)){ %> selected<%} %>>010</option>
-  <option value="011" <% if("011".equals(phone1)){ %> selected<%} %>>011</option>
+
 </select>-
-<input type="text" value="<%=phone2 %>" name="phone2" >-<input type="text" value="<%=phone3 %>" name="phone3" >
+<input type="text" value="<%= phone2 %>" name="phone2" >
+-<input type="text" value="<%= phone3 %>" name="phone3" >
 <br>
-이메일:<input type="text" value="<%=email1 %>" name="email1" id="email1">@
-       <input type="text" value="<%=email2 %>" name="email2" id="email2" placeholder="직접입력">
+이메일:<input type="text" value="<%= email1 %>" name="email1" id="email1">@
+       <input type="text" value="<%= email2 %>" name="email2" id="email2" placeholder="직접입력">
        <select  id="emailSelect">
         <option value="daum.net">daum.net</option>
         <option value="naver.com">naver.com</option>
        </select>
 <br>
-<input type="submit" value="회원가입">
+<input type="submit" value="수정">
 <input type="reset" value="취소">
 </form>
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>

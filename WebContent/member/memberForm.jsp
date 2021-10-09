@@ -38,7 +38,7 @@
 	 $.ajax({
 			type : "GET",
 			url : "MemberIdCheckServlet",
-			dataType : "text",//응답 데이터 타입
+			dataType : "text",
 			data : {
 				userid : $("#userid").val()
 			},

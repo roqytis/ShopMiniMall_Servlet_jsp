@@ -1,5 +1,3 @@
-<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
-<%@page import="java.io.PrintWriter"%>
 <%@page import="com.dto.GoodsDTO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -23,50 +21,48 @@
 				</tr>
 
 				<tr>
-				
-<!-- request에서 데이터 얻은 후  모든 멤버변수를 변수에 저장  후 표에 출력해줌-->
+<!-- request에서 데이터 얻은 후  모든 멤버변수를 변수에 저장  후 표에 출력해줌-->				
  <%
-  List<GoodsDTO> list=(List<GoodsDTO>)request. getAttribute("goodsList");
- /* 데이터저장 */
- for(int i=1; i<=list.size();i++){
-	 GoodsDTO dto= list.get(i-1);
-	 String gCode= dto.getgCode();
-	 String gCategory= dto.getgCategory();
-	 String gName= dto. getgName();
-	 String gContent= dto.getgContent();
-	 int gPrice= dto.getgPrice();
-	 String gImage= dto.getgImage();
+    List<GoodsDTO> list = (List<GoodsDTO>)request.getAttribute("goodsList");
+    for(int i=1;i<=list.size();i++){
+    	GoodsDTO dto = list.get(i-1);
+    	String gCode = dto.getgCode();
+    	String gCategory = dto.getgCategory();
+    	String gName = dto.getgName();
+    	String gContent = dto.getgContent();
+    	int gPrice = dto.getgPrice();
+    	String gImage = dto.getgImage();
  %>
 						<td>
 							<table style='padding:15px'>
 								<tr>
 									<td>
-										<a href="GoodsRetrieveServlet?gCode=T1"> 
+										<a href="GoodsRetrieveServlet?gCode=T1"><!-- 이미지링크 --> 
 											<img src="images/items/<%=gImage %>.gif" border="0" align="center" width="200">
 										</a>
 									</td>
 								</tr>
 								<tr>
-								 
+								
 									<td height="10">
 								</tr>
 								<tr>
 									<td class= "td_default" align ="center">
 										<a class= "a_black" href=""> 
-										 <%=gName %><br>
+										<%= gName%><br>
 										</a>
 										<font color="gray">
 										 --------------------
 										</font>
 									</td>
-								
+									
 								</tr>
 								<tr>
 									<td height="10">
 								</tr>
 								<tr>
 									<td class="td_gray" align ="center">
-											<%= gContent %>
+										<%= gContent%>
 									</td>
 								</tr>
 								<tr>
@@ -74,7 +70,7 @@
 								</tr>
 								<tr>
 									<td class="td_red" align ="center"><font color="red"><strong>
-										<%= gPrice %></strong></font></td>
+									<%= gPrice%>	</strong></font></td>
 								</tr>
 							</table>
 						</td>
