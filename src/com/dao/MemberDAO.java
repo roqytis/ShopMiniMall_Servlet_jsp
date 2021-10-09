@@ -20,4 +20,9 @@ public MemberDTO login(SqlSession session, HashMap<String, String> map) {
 	MemberDTO n= session.selectOne("MemberMapper.login", map);
 	return n;
 }
+public MemberDTO mypage(SqlSession session, String userid) {
+	MemberDTO n= session.selectOne("MemberMapper.mypage", userid);
+	return n;
+}
+
 }

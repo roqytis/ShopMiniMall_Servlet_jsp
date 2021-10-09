@@ -41,7 +41,7 @@ public class MemberAddServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		if(n>0) {session.setAttribute("memberAdd", "회원가입성공");};
 		session.setMaxInactiveInterval(60*30);
-		response.sendRedirect("main.jsp");
+		response.sendRedirect("main");//mainServlet
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
