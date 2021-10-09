@@ -24,9 +24,7 @@
 <!-- request에서 데이터 얻은 후  모든 멤버변수를 변수에 저장  후 표에 출력해줌-->				
  <%
     List<GoodsDTO> list = (List<GoodsDTO>)request.getAttribute("goodsList");
-    System.out.print("list.jsp"+ list);   
-      
- for(int i=1;i<=list.size();i++){
+    for(int i=1;i<=list.size();i++){
     	GoodsDTO dto = list.get(i-1);
     	String gCode = dto.getgCode();
     	String gCategory = dto.getgCategory();
@@ -34,7 +32,6 @@
     	String gContent = dto.getgContent();
     	int gPrice = dto.getgPrice();
     	String gImage = dto.getgImage();
-    
  %>
 						<td>
 							<table style='padding:15px'>
@@ -51,7 +48,7 @@
 								</tr>
 								<tr>
 									<td class= "td_default" align ="center">
-										<a class= "a_black" href="GoodsRetrieveServlet?gCode=<%= gCode %>"> 
+										<a class= "a_black" href=""> 
 										<%= gName%><br>
 										</a>
 										<font color="gray">

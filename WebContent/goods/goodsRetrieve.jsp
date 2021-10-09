@@ -1,38 +1,53 @@
 <%@page import="com.dto.GoodsDTO"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-GoodsDTO dto=(GoodsDTO)request.getAttribute("goodsRetrieve");
-String gCode =dto.getgCode();
-String gName =dto.getgName();
-int gPrice =dto.getgPrice();
-String gImage= dto.getgImage();
-System.out.print(dto);
+   String mesg = (String)session.getAttribute("mesg");
+  if(mesg!=null){
+%>    
+   <script>
+     alert('<%=mesg %>');
+   </script>
+<%
+  }
+  session.removeAttribute("mesg");//메세지 삭제
 %>    
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-
-	$("#up").on("click", function() {
-		var count = $("#gAmount").val();
-		$("#gAmount").val(parseInt(count) + 1);
-	});//up		
-	
-	
-	$("#down").on("click", function() {
-		var count = $("#gAmount").val();
-		if (count != 1) {
-			$("#gAmount").val(parseInt(count) - 1);
-		}
-	});//down
-
-	
-});
-
-</script>
-<form name="goodRetrieveForm" method="GET" action="#">
+    $(document).ready(function(){
+    
+   $("#cart").on("click",function(){
+	 
+	   if($("#gSize").val()=="사이즈선택"){
+  			alert("사이즈선택하세요");
+  			return false;
+  			//event.preventDefault();
+  			
+  		}
+  		if($("#gColor").val()=="색상선택"){
+  			alert("색상을 선택하세요");
+  			return false;
+  			//event.preventDefault();
+  		}
+  		$("form").attr("action", "GoodsCartServlet");  		/////
 	   
+   });	
+    });	
+
+</script>      
+<%
+  GoodsDTO dto = (GoodsDTO)request.getAttribute("goodsRetrieve");
+  String gCode = dto.getgCode();
+  String gName = dto.getgName();
+  int gPrice = dto.getgPrice();
+  String gImage = dto.getgImage();
+  
+%>    
+<form name="goodRetrieveForm" method="GET" ><!-- action은 위 jquery에서 설정  -->
+	    <input type="hidden" name="gImage" value="<%=gImage%>"> <input
+		type="hidden" name="gCode" value="<%=gCode%>"> <input
+		type="hidden" name="gName" value="<%=gName%>"> <input
+		type="hidden" name="gPrice" value="<%=gPrice%>">
 
 	<table width="100%" cellspacing="0" cellpadding="0">
 		<tr>
@@ -70,7 +85,8 @@ $(document).ready(function() {
 					</tr>
 					<tr>
 						<td class="td_title">가격</td>
-   						<td class="td_red" colspan="2" style='padding-left: 30px'>
+
+						<td class="td_red" colspan="2" style='padding-left: 30px'>
 						<%= gPrice %>
 						</td>
 					</tr>
@@ -117,7 +133,7 @@ $(document).ready(function() {
 		</tr>
 	</table>
 
-	<br> <button onclick="reqCheck('order')">구매</button>
+	<br> <button>구매</button>
 	&nbsp;&nbsp;
 	<button id="cart">장바구니</button>
 </form>

@@ -8,9 +8,9 @@
 </head>
 <body>
 <h1>회원등록화면입니다.</h1>
-<jsp:include page="common/top.jsp" flush="true"></jsp:include><br>
-<jsp:include page="common/menu.jsp"  flush="true"></jsp:include><br>
+<jsp:include page="common/top.jsp" flush="false"></jsp:include><br>
+<jsp:include page="common/menu.jsp"  flush="false"></jsp:include><br>
 <hr>
-<jsp:include page="/member/memberForm.jsp"  flush="true"></jsp:include>
+<jsp:include page="/member/memberForm.jsp"  flush="false"></jsp:include>
 </body>
 </html>

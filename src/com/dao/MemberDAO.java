@@ -8,6 +8,12 @@ import com.dto.MemberDTO;
 
 public class MemberDAO {
 
+	public String idSearch(SqlSession session,
+			MemberDTO dto) {
+		String userid = session.selectOne("MemberMapper.idSearch",dto);
+		return userid;
+	}
+	
 	public int memberUpdate(SqlSession session,MemberDTO dto) {
 		   int n = session.update("MemberMapper.memberUpdate", dto);
 		   return n;
@@ -31,9 +37,4 @@ public class MemberDAO {
 	   MemberDTO n = session.selectOne("MemberMapper.mypage", userid);
 	   return n;
    }
-
-public String idSearch(SqlSession session, MemberDTO dto) {
-	String n=session.selectOne("MemberMapper.idSearch",dto);
-	return n;
-}
 }

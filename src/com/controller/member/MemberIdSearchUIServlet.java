@@ -1,32 +1,29 @@
 package com.controller.member;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.dto.MemberDTO;
+import com.service.MemberService;
 
 /**
- * Servlet implementation class MemberIdSearchUIServlet
+ * Servlet implementation class MemberUpdateServlet
  */
 @WebServlet("/MemberIdSearchUIServlet")
 public class MemberIdSearchUIServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberIdSearchUIServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("idSearch.jsp");
+		
+		 RequestDispatcher dis = 
+				 request.getRequestDispatcher("idSearch.jsp");
+		 dis.forward(request, response);
 	}
 
 	/**

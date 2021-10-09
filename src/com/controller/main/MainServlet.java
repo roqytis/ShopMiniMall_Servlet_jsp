@@ -35,6 +35,5 @@ public class MainServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
-	
 
 }

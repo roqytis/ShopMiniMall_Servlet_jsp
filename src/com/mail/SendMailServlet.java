@@ -24,16 +24,16 @@ import javax.servlet.http.HttpServletResponse;
 public class SendMailServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String mailTo= (String)request.getAttribute("mailTo");//전송받을 메일주소
-		String userid = (String)request.getAttribute("userid");//찾은 아이디
+		String mailTo= (String)request.getAttribute("mailTo");
+		String userid = (String)request.getAttribute("userid");
 		
 	System.out.println(mailTo+"\t"+userid);
 		String host = "smtp.naver.com";
-	    String subject = "네이버를 이용한 메일발송연습니다.";  //제목
-	    String from = "roqytis@naver.com"; //보내는 사람의 메일
-	   String fromName = "Test"; //보낸는사람 이름
-	    String to = "roqytis@naver.com"; //받는 사람의 메일 
-	    String content = "아이디:" + 1;//메일 내용
+	    String subject = "네이버를 이용한 메일발송";
+	    String from = "inky4832@naver.com"; //보내는 메일
+	   String fromName = "Test";
+	    String to = mailTo; //받는 메일
+	    String content = "아이디:" + userid;
 
 	   try{
 	     //프로퍼티 값 인스턴스 생성과 기본세션(SMTP 서버 호스트 지정)
@@ -52,7 +52,7 @@ public class SendMailServlet extends HttpServlet {
 	     props.put("mail.smtp.socketFactory.fallback", "false");
 
 
-	     Authenticator auth = new SendMail(); //아이디 패스워드 인증
+	     Authenticator auth = new SendMail();
 	     Session mailSession = Session.getDefaultInstance(props,auth);
 	   
 	     Message msg = new MimeMessage(mailSession);

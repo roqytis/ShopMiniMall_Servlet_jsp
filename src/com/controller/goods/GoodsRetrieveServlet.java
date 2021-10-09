@@ -1,6 +1,7 @@
 package com.controller.goods;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,41 +14,25 @@ import com.dto.GoodsDTO;
 import com.service.GoodsService;
 
 /**
- * Servlet implementation class GoodsRetrieveServlet
+ * Servlet implementation class GoodsListServlet
  */
 @WebServlet("/GoodsRetrieveServlet")
 public class GoodsRetrieveServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GoodsRetrieveServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	
 		String gCode = request.getParameter("gCode");
-		System.out.println(gCode);
+
+		GoodsService service = new GoodsService();
+		GoodsDTO dto = service.goodsRetrieve(gCode);
+
+		request.setAttribute("goodsRetrieve", dto);
+
+		RequestDispatcher dis = request.getRequestDispatcher("goodsRetrieve.jsp");
+		dis.forward(request, response);
 		
-		  GoodsService service = new GoodsService(); GoodsDTO dto
-		  =service.goodsRetrive(gCode);
-		  System.out.println(dto);
-		  request.setAttribute("goodsRetrieve", dto);
-		  
-		  RequestDispatcher dis = request.getRequestDispatcher("goodsRetrieve.jsp");
-		  dis.forward(request, response);
-		 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);

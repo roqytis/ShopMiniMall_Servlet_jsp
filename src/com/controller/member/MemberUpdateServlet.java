@@ -42,10 +42,10 @@ public class MemberUpdateServlet extends HttpServlet {
 							addr1, addr2, phone1, phone2, phone3, email1, email2);			
 			MemberService service = new MemberService();
 			int num = service.memberUpdate(dto2);
-			nextPage = "main";//MainServlet
+			nextPage = "main";
 		}else {
 			nextPage = "LoginUIServlet";
-			//request.setAttribute("mesg", "로그인이 필요한 작업입니다.");
+			request.setAttribute("mesg", "로그인이 필요한 작업입니다.");
 		}
 		  RequestDispatcher dis =
 	    		  request.getRequestDispatcher(nextPage);
