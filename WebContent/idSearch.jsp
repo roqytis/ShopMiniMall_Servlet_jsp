@@ -7,9 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="common/top.jsp" flush="false" /><br>
-<jsp:include page="common/menu.jsp" flush="false" />
+<jsp:include page="common/top.jsp" flush="true" /><br>
+<jsp:include page="common/menu.jsp" flush="true" />
 <hr>
-<jsp:include page="member/idSearch.jsp" flush="false" />
+<jsp:include page="member/idSearch.jsp" flush="true" />
 </body>
 </html>

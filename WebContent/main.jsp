@@ -18,10 +18,10 @@
    }
 %>
 <h1>Main 화면입니다.</h1>
-<jsp:include page="common/top.jsp" flush="false" /><br>
-<jsp:include page="common/menu.jsp" flush="false" />
+<jsp:include page="common/top.jsp" flush="true" /><br>
+<jsp:include page="common/menu.jsp" flush="true" />
 <hr>
-<jsp:include page="goods/goodsList.jsp" flush="false" />
+<jsp:include page="goods/goodsList.jsp" flush="true" />
 
 </body>
 </html>

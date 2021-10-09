@@ -28,4 +28,35 @@ public class GoodsService {
 			}
 			return list;
 		}//end idCheck
+
+	public GoodsDTO goodsRetrive(String gCode) {
+		SqlSession session = MySqlSessionFactory.getSession();
+		GoodsDTO list = null;
+		try {
+			 GoodsDAO dao = new GoodsDAO();
+			 list = dao.goodsRetrieve(session, gCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return list;
+	}
+
+
+	  
+	  
+	  //public String goodsRetrive(String gCode) {
+	//	SqlSession session = MySqlSessionFactory.getSession();
+	//	String n= null;
+	//	try {
+	//		GoodsDAO dao= new GoodsDAO();
+	//		n= dao.goodsRetrive(session,gCode);
+	//	} catch (Exception e) {
+	//		e.printStackTrace();
+	//	}finally {
+	//		session.close();
+	//	}
+	//	return n;
+//	}
 }//end class
