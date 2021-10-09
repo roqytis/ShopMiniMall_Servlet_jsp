@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.dto.CartDTO;
 import com.dto.MemberDTO;
 
 public class MemberDAO {
@@ -37,4 +38,6 @@ public class MemberDAO {
 	   MemberDTO n = session.selectOne("MemberMapper.mypage", userid);
 	   return n;
    }
+
+
 }

@@ -5,26 +5,50 @@
     pageEncoding="UTF-8"%>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
-    	//삭제 버튼
-    	$(".delBtn").on("click", function() {
-			var num =$(this).attr("data-xxx");
-			console.log("num");
-			location.href="CartDelServlet?num="+num;
-			
-			
-		});
-    	
-    	//전체선택
-    	$("#allCheck").on("click", function() {
-   			var result= this.checked;
-		 $(".check").each( function(idx,data) {
-			this.checked=result;
-		  });
-    	});
-    	
-    });
-    
+$(document).ready(function(){
+
+	 //수정버튼
+   $(".updateBtn").on("click",function(){
+   	var num= $(this).attr("data-xxx");
+   	var gAmount = $("#cartAmount"+num).val();        	
+   	
+   	var gPrice= $(this).attr("data-price");
+   	$.ajax({
+   		url:'CartUpdateServlet',
+   		type:'get',
+   		dataType:'text',
+   		data:{
+   			num:num,
+   			gAmount:gAmount
+   		},	
+   		
+   		success:function(data,status,xhr){
+   			var sum=gAmount*gPrice;
+   			$("#sum"+num).text(sum);
+   		},
+   		error:function(xhr,status,error){
+   			
+   		}
+   	});//end ajaxgkgk
+   	
+   });
+	 
+   //삭제버튼
+   $(".delBtn").on("click",function(){
+   	var num= $(this).attr("data-xxx");
+   	location.href="CartDelServlet?num="+num;
+   });
+
+   //전체선택
+   $("#allCheck").on("click",function(){
+   	var result = this.checked;
+   	$(".check").each(function(idx,data){
+   		this.checked=result;
+   	});
+   });
+   
+   
+});
 </script>
 <table width="90%" cellspacing="0" cellpadding="0" border="0">
 
@@ -118,14 +142,17 @@
 			<td class="td_default" align="center" width="110">
 			<%= gPrice %>
 			</td>
-			<td class="td_default" align="center" width="90"><input
-				class="input_default" type="text" name="cartAmount"
-				id="cartAmount" style="text-align: right" maxlength="3"
+			<td class="td_default" align="center" width="90">
+			<input class="input_default" type="text" name="cartAmount"
+				id="cartAmount<%=num %>" style="text-align: right" maxlength="3"
 				size="2" value="<%=gAmount %>"></input></td>
-			<td><input type="button" value="수정"
-				onclick="amountUpdate('81')" /></td>
+			<td><input type="button" value="수정" 
+					class="updateBtn" 
+				data-xxx="<%= num %>"
+				data-price="<%= gPrice %>">
+			</td>
 			<td class="td_default" align="center" width="80"
-				style='padding-left: 5px'><span id="sum81">
+				style='padding-left: 5px'><span id="sum<%=num%>">
 				<%= gPrice*gAmount %>
 				</span></td>
 			<td><input type="button" value="주문"
