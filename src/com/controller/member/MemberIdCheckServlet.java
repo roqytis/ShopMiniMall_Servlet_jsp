@@ -22,10 +22,14 @@ String userid = request.getParameter("userid");
 		MemberService service = new MemberService();
 		int count = service.idCheck(userid);//중복 count 	
 		
+		
+		
+		
 		String mesg = "아이디 사용 가능";
 		if(count==1) {
 		  mesg = "아이디 중복";	
 		}
+		
 		
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();

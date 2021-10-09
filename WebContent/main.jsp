@@ -9,12 +9,14 @@
 <body>
 <%
    String mesg = (String)session.getAttribute("memberAdd");
-   if(mesg!=null){
+     if(mesg!=null){
 %>
    <script type="text/javascript">
-     alert('<%=mesg%>');
+     alert("<%=mesg%>");
    </script>
+  
 <%
+session.removeAttribute("memberAdd");
    }
 %>
 <h1>Main화면입니다.</h1>

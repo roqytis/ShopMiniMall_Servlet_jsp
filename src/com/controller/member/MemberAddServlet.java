@@ -39,8 +39,8 @@ public class MemberAddServlet extends HttpServlet {
 		int n = service.memberAdd(dto);
 		
 		HttpSession session = request.getSession();
-		session.setAttribute("memberAdd", "회원가입성공");
-		session.setMaxInactiveInterval(5);
+		if(n>0) {session.setAttribute("memberAdd", "회원가입성공");};
+		session.setMaxInactiveInterval(60*30);
 		response.sendRedirect("main.jsp");
 	}
 
